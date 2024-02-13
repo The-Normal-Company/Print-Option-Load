@@ -3,22 +3,35 @@
 <head>
     <title>Print Barcode</title>
     <script type="text/javascript">
+        // Function to get URL parameter by name
+        function getQueryParam(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+
+        // Function to print the image
         function printImage() {
-            // Direct URL to the barcode image
-            var imageUrl = 'https://barcode.orcascan.com/?data=ORG&text=ORG%20-%20"O"%20Ring%204%201/2%20x%203/16&type=code128&format=png';
-            
-            // Create an img element
-            var img = document.createElement('img');
-            img.onload = function() {
-                // Trigger print dialog once image is loaded
-                window.print();
-            };
-            img.src = imageUrl;
-            img.style.maxWidth = '100%'; // Ensure the image fits the page
-            img.style.height = 'auto';
-            
-            // Append the image to the body
-            document.body.appendChild(img);
+            // Get the imageUrl parameter from the URL
+            var imageUrl = getQueryParam('imageUrl');
+
+            if (imageUrl) {
+                // Create an img element
+                var img = document.createElement('img');
+                img.onload = function() {
+                    // Trigger print dialog once image is loaded
+                    window.print();
+                };
+                img.src = imageUrl;
+                img.style.maxWidth = '100%'; // Ensure the image fits the page
+                img.style.height = 'auto';
+
+                // Append the image to the body
+                document.body.appendChild(img);
+            } else {
+                alert('No image URL provided!');
+            }
         }
     </script>
 </head>
