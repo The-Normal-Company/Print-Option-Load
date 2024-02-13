@@ -13,7 +13,7 @@
 
         // Function to print the image
         function printImage() {
-            // Get the imageUrl parameter from the URL, which is expected to be encoded
+            // Get the imageUrl parameter from the URL
             var imageUrl = getQueryParam('imageUrl');
 
             if (imageUrl) {
@@ -23,7 +23,7 @@
                     // Trigger print dialog once image is loaded
                     window.print();
                 };
-                img.src = imageUrl; // The URL is already decoded by getQueryParam
+                img.src = imageUrl; // Directly use the provided URL
                 img.style.maxWidth = '100%'; // Ensure the image fits the page
                 img.style.height = 'auto';
 
@@ -39,4 +39,5 @@
     <!-- The image will be dynamically inserted and printed -->
 </body>
 </html>
+``
 
