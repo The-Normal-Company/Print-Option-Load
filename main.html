@@ -1,31 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Print Image</title>
+    <title>Print Barcode</title>
     <script type="text/javascript">
-        // Function to get URL parameters
-        function getQueryParam(param) {
-            var searchParams = new URLSearchParams(window.location.search);
-            return searchParams.get(param);
-        }
-
-        // Function to trigger printing once the image is loaded
         function printImage() {
-            var imageUrl = getQueryParam('imageUrl');
-            if (imageUrl) {
-                var img = document.createElement('img');
-                img.onload = function() {
-                    window.print();
-                };
-                img.src = imageUrl;
-                document.body.appendChild(img);
-            } else {
-                alert('No image URL provided!');
-            }
+            // Direct URL to the barcode image
+            var imageUrl = 'https://barcode.orcascan.com/?data=ORG&text=ORG%20-%20"O"%20Ring%204%201/2%20x%203/16&type=code128&format=png';
+            
+            // Create an img element
+            var img = document.createElement('img');
+            img.onload = function() {
+                // Trigger print dialog once image is loaded
+                window.print();
+            };
+            img.src = imageUrl;
+            img.style.maxWidth = '100%'; // Ensure the image fits the page
+            img.style.height = 'auto';
+            
+            // Append the image to the body
+            document.body.appendChild(img);
         }
     </script>
 </head>
 <body onload="printImage()">
-    <!-- The image will be added dynamically by JavaScript -->
+    <!-- The image will be dynamically inserted and printed -->
 </body>
 </html>
