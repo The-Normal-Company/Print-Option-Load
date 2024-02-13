@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Print Image</title>
+    <script type="text/javascript">
+        // Function to get URL parameters
+        function getQueryParam(param) {
+            var searchParams = new URLSearchParams(window.location.search);
+            return searchParams.get(param);
+        }
+
+        // Function to trigger printing once the image is loaded
+        function printImage() {
+            var imageUrl = getQueryParam('imageUrl');
+            if (imageUrl) {
+                var img = document.createElement('img');
+                img.onload = function() {
+                    window.print();
+                };
+                img.src = imageUrl;
+                document.body.appendChild(img);
+            } else {
+                alert('No image URL provided!');
+            }
+        }
+    </script>
+</head>
+<body onload="printImage()">
+    <!-- The image will be added dynamically by JavaScript -->
+</body>
+</html>
