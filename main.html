@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Print Barcode</title>
-        <style type="text/css">
+    <style type="text/css">
         /* Hide everything in the body by default when printing */
         @media print {
             body * {
@@ -30,21 +30,14 @@
 
         // Function to print the image
         function printImage() {
-            // Get the imageUrl parameter from the URL
             var imageUrl = getQueryParam('imageUrl');
-
             if (imageUrl) {
-                // Create an img element
                 var img = document.createElement('img');
+                img.id = 'myImage';
                 img.onload = function() {
-                    // Trigger print dialog once image is loaded
                     window.print();
                 };
-                img.src = imageUrl; // Directly use the provided URL
-                img.style.maxWidth = '100%'; // Ensure the image fits the page
-                img.style.height = 'auto';
-
-                // Append the image to the body
+                img.src = imageUrl;
                 document.body.appendChild(img);
             } else {
                 alert('No image URL provided!');
@@ -56,5 +49,4 @@
     <!-- The image will be dynamically inserted and printed -->
 </body>
 </html>
-``
 
