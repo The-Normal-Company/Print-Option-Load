@@ -2,6 +2,23 @@
 <html>
 <head>
     <title>Print Barcode</title>
+        <style type="text/css">
+        /* Hide everything in the body by default when printing */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            /* Only display the image when printing */
+            img#myImage {
+                visibility: visible;
+                position: absolute;
+                left: 0;
+                top: 0;
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    </style>
     <script type="text/javascript">
         // Function to get URL parameter by name
         function getQueryParam(name) {
