@@ -24,6 +24,11 @@
                 max-width: 100%;
                 height: auto;
             }
+            #imageDesc {
+                font-size: 24px; /* Make text larger */
+                font-weight: bold; /* Make text bolder */
+                margin-top: 10px; /* Adjust space between image and text */
+            }
         }
         /* Style for screen viewing, not print */
         body, html {
@@ -58,8 +63,8 @@
                 img.src = imageUrl;
 
                 var desc = document.createElement('div');
+                desc.id = 'imageDesc'; // Assign id for styling
                 desc.textContent = imageDesc; // Set the text content to the description
-                desc.style.marginTop = '20px'; // Add space between image and description
 
                 var container = document.createElement('div');
                 container.id = 'printContainer';
