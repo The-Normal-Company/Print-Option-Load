@@ -3,20 +3,37 @@
 <head>
     <title>Print Barcode</title>
     <style type="text/css">
-        /* Hide everything in the body by default when printing */
         @media print {
+            body, html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
             body * {
                 visibility: hidden;
             }
-            /* Only display the image when printing */
-            img#myImage {
+            #printContainer, #printContainer * {
                 visibility: visible;
-                position: absolute;
-                left: 0;
-                top: 0;
+                position: relative;
+                text-align: center;
+            }
+            img {
                 max-width: 100%;
                 height: auto;
             }
+        }
+        /* Style for screen viewing, not print */
+        body, html {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #printContainer {
+            text-align: center;
         }
     </style>
     <script type="text/javascript">
@@ -28,25 +45,36 @@
             return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
 
-        // Function to print the image
-        function printImage() {
+        // Function to print the image and description
+        function printImageAndDesc() {
             var imageUrl = getQueryParam('imageUrl');
+            var imageDesc = getQueryParam('desc');
+
             if (imageUrl) {
                 var img = document.createElement('img');
-                img.id = 'myImage';
                 img.onload = function() {
                     window.print();
                 };
                 img.src = imageUrl;
-                document.body.appendChild(img);
+
+                var desc = document.createElement('div');
+                desc.textContent = imageDesc; // Set the text content to the description
+                desc.style.marginTop = '20px'; // Add space between image and description
+
+                var container = document.createElement('div');
+                container.id = 'printContainer';
+                container.appendChild(img);
+                container.appendChild(desc); // Append the description below the image
+
+                document.body.appendChild(container);
             } else {
                 alert('No image URL provided!');
             }
         }
     </script>
 </head>
-<body onload="printImage()">
-    <!-- The image will be dynamically inserted and printed -->
+<body onload="printImageAndDesc()">
+    <!-- The image and description will be dynamically inserted and printed -->
 </body>
 </html>
 
