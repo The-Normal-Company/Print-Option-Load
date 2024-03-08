@@ -42,9 +42,9 @@
         }
     </style>
     <script type="text/javascript">
-        // Function to get URL parameter by name
+        // Function to get URL parameter by name, updated for special characters
         function getQueryParam(name) {
-            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            name = name.replace(/[\[\]]/g, "\\$&");
             var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
                 results = regex.exec(location.search);
             return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
@@ -60,7 +60,7 @@
                 img.onload = function() {
                     window.print();
                 };
-                img.src = imageUrl;
+                img.src = decodeURIComponent(imageUrl); // Ensure special characters in URL are correctly interpreted
 
                 var desc = document.createElement('div');
                 desc.id = 'imageDesc'; // Assign id for styling
@@ -82,4 +82,5 @@
     <!-- The image and description will be dynamically inserted and printed -->
 </body>
 </html>
+
 
